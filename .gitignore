@@ -1,2 +1,5 @@
 README.md
 .42cog/
+.claude/*.local.*
+.claude/ralph-loop.local.md
+.claude/claude-plugins-official/

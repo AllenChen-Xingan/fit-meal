@@ -5,6 +5,7 @@ import { Suspense, useState, useCallback } from "react"
 import { RecipeCard } from "@/components/recipe-card"
 import { Button } from "@/components/ui/button"
 import { Disclaimer } from "@/components/disclaimer"
+import { NoRecommendationsEmpty } from "@/components/empty-state"
 import {
   getRecipesByContext,
   getRandomRecipes,
@@ -122,9 +123,7 @@ function RecommendContent() {
             />
           ))
         ) : (
-          <div className="rounded-lg bg-gray-50 p-8 text-center text-gray-500">
-            暂无推荐食谱
-          </div>
+          <NoRecommendationsEmpty onRefresh={handleRefresh} />
         )}
       </div>
 

@@ -17,9 +17,13 @@ interface UserProfile {
   age?: number
   gender?: "male" | "female" | "other"
   activityLevel?: "sedentary" | "light" | "moderate" | "active" | "very-active"
-  goal?: "lose-weight" | "maintain" | "gain-muscle"
+  goal?: "lose-weight" | "maintain" | "gain-muscle" | "healthy"
   targetCalories?: number
   targetProtein?: number
+  // Onboarding preferences
+  busyLevel?: "relaxed" | "normal" | "busy"
+  cookingLevel?: "beginner" | "intermediate" | "advanced"
+  onboardingCompleted?: boolean
 }
 
 interface AuthState {
@@ -37,6 +41,8 @@ interface AuthState {
   setUser: (user: User | null) => void
   checkAuth: () => Promise<void>
   clearError: () => void
+  completeOnboarding: (settings: { goal: string; busyLevel: string; cookingLevel: string }) => void
+  needsOnboarding: () => boolean
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -152,6 +158,26 @@ export const useAuthStore = create<AuthState>()(
 
       clearError: () => {
         set({ error: null })
+      },
+
+      completeOnboarding: (settings: { goal: string; busyLevel: string; cookingLevel: string }) => {
+        const { profile } = get()
+        set({
+          profile: {
+            ...profile,
+            goal: settings.goal as UserProfile["goal"],
+            busyLevel: settings.busyLevel as UserProfile["busyLevel"],
+            cookingLevel: settings.cookingLevel as UserProfile["cookingLevel"],
+            onboardingCompleted: true,
+          },
+        })
+      },
+
+      needsOnboarding: () => {
+        const { profile, isAuthenticated } = get()
+        // Only show onboarding for authenticated users who haven't completed it
+        if (!isAuthenticated) return false
+        return !profile?.onboardingCompleted
       },
     }),
     {
