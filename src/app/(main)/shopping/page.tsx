@@ -5,7 +5,8 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useShoppingStore, type ShoppingItem } from "@/lib/stores/shopping-store"
-import { Plus, Trash2, Check, ShoppingCart } from "lucide-react"
+import { NoShoppingItemsEmpty } from "@/components/empty-state"
+import { Plus, Trash2, Check } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const categoryLabels: Record<ShoppingItem["category"], string> = {
@@ -191,13 +192,7 @@ export default function ShoppingPage() {
       ) : (
         <Card>
           <CardContent className="p-4">
-            <div className="py-8 text-center text-gray-500">
-              <ShoppingCart className="mx-auto mb-2 h-12 w-12 text-gray-300" />
-              <p className="text-sm">购物清单为空</p>
-              <p className="mt-1 text-xs text-gray-400">
-                在食谱详情页可以一键添加食材到购物清单
-              </p>
-            </div>
+            <NoShoppingItemsEmpty />
           </CardContent>
         </Card>
       )}

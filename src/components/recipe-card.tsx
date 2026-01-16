@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { useRecipeStore } from "@/lib/stores/recipe-store"
@@ -54,10 +55,12 @@ export function RecipeCard({
       >
         {imageUrl && (
           <div className="relative aspect-video w-full overflow-hidden bg-gray-100">
-            <img
+            <Image
               src={imageUrl}
               alt={title}
-              className="h-full w-full object-cover"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover"
             />
             {showFavorite && (
               <Button

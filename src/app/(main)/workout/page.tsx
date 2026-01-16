@@ -16,7 +16,7 @@ const workoutTypeIcons: Record<string, string> = {
 }
 
 export default function WorkoutPage() {
-  const { records, removeRecord, getTotalCaloriesBurned, getWorkoutStreak } = useWorkoutStore()
+  const { records, removeRecord, getWorkoutStreak } = useWorkoutStore()
   const [showAddForm, setShowAddForm] = useState(false)
   const [selectedMonth, setSelectedMonth] = useState(() => {
     const now = new Date()

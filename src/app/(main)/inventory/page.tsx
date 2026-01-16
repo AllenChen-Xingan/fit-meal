@@ -5,7 +5,8 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { useInventoryStore } from "@/lib/stores/inventory-store"
 import { AddInventoryForm } from "@/components/add-inventory-form"
-import { Plus, ShoppingCart, AlertTriangle, Package, Minus, Trash2 } from "lucide-react"
+import { NoInventoryEmpty } from "@/components/empty-state"
+import { Plus, ShoppingCart, AlertTriangle, Minus, Trash2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 export default function InventoryPage() {
@@ -187,13 +188,7 @@ export default function InventoryPage() {
       ) : (
         <Card>
           <CardContent className="p-4">
-            <div className="text-center text-gray-500 py-8">
-              <Package className="mx-auto mb-2 h-12 w-12 text-gray-300" />
-              <p className="text-sm">库存为空</p>
-              <p className="text-xs text-gray-400 mt-1">
-                完成制作后可以将预制菜存入库存
-              </p>
-            </div>
+            <NoInventoryEmpty onAdd={() => setShowAddForm(true)} />
           </CardContent>
         </Card>
       )}
